@@ -1,0 +1,52 @@
+//
+//  CategorySection.swift
+//  SwiftBites
+//
+//  Created by Raneem Alomair on 26/10/2025.
+//
+
+import SwiftUI
+
+struct CategorySection: View {
+  let category: Category
+
+  var body: some View {
+    Section {
+      if category.recipes.isEmpty { empty } else { list }
+    } header: {
+      HStack {
+        Text(category.name).font(.title).bold()
+        Spacer()
+        NavigationLink("Edit", value: CategoryFormViewModel.Mode.edit(category)) 
+      }
+      .padding(.horizontal, 20)
+      .padding(.vertical, 10)
+    }
+  }
+
+  private var list: some View {
+    ScrollView(.horizontal) {
+      LazyHStack(spacing: 0) {
+        ForEach(category.recipes, id: \.id) { recipe in
+          RecipeCell(recipe: recipe)
+            .containerRelativeFrame(.horizontal, count: 12, span: 11, spacing: 0)
+        }
+      }
+      .scrollTargetLayout()
+    }
+    .scrollTargetBehavior(.viewAligned)
+    .scrollIndicators(.hidden)
+  }
+
+  private var empty: some View {
+    ContentUnavailableView(
+      label: { Label("No Recipes", systemImage: "list.clipboard") },
+      description: { Text("Recipes you add will appear here.") },
+      actions: {
+        NavigationLink("Add Recipe", value: RecipeFormView.Mode.add)
+          .buttonBorderShape(.roundedRectangle)
+          .buttonStyle(.bordered)
+      }
+    )
+  }
+}
