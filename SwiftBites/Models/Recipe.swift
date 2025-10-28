@@ -11,7 +11,6 @@ import SwiftData
 
 @Model
 final class Recipe: Identifiable {
-  @Attribute(.unique) var id: UUID
   @Attribute(.unique) var name: String
   var summary: String
   @Relationship var category: Category?
@@ -32,7 +31,6 @@ final class Recipe: Identifiable {
     instructions: String = "",
     imageData: Data? = nil
   ) {
-    self.id = id
     self.name = name
     self.summary = summary
     self.category = category

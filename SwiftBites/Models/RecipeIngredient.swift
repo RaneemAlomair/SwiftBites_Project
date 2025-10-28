@@ -5,7 +5,6 @@
 //  Created by Raneem Alomair on 26/10/2025.
 //
 
-// FILE: Models/RecipeIngredient.swift
 import Foundation
 import SwiftData
 
